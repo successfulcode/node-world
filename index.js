@@ -1,26 +1,23 @@
 const express = require('express');
 require('dotenv').config();
 const path = require('path');
+const chalk = require('chalk');
+const { connectDB } = require('./services/db');
 
 const app = express();
-
-const port = process.env.PORT || 3000;
-
-app.listen(port, () => {
-  console.log(`Server listening on ${port} port`);
-});
+connectDB();
+app.use(express.json({ extended: false }));
 
 app.get('/', (req, res) => {
   res.send('Hi Node!');
 });
 
-app.get('/posts', (req, res) => {
-  res.send('Hi Posts!');
-});
-
-app.get('/users/:id', (req, res) => {
-  res.status(200).send('ok');
-  res.send(`Hi Users!${req.originalUrl} ${req.method} ${req.params.id}`);
-});
-
 app.use('/pictures', express.static(path.join(__dirname, 'assets')));
+
+app.use('/api/users', require('./routes/users'));
+
+const port = process.env.PORT || 3000;
+
+app.listen(port, () => {
+  console.log(chalk.italic.yellowBright(`Server listening on ${port} port`));
+});
