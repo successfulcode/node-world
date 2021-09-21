@@ -1,3 +1,5 @@
+'use strict';
+
 const express = require('express');
 const router = express.Router();
 const users = require('../models/users');
@@ -6,7 +8,7 @@ router.get('/', async (req, res) => {
   try {
     const pageNumber = parseInt(req.query.page);
     const limit = parseInt(req.query.limit);
-    results = await users.getUsers(pageNumber, limit);
+    const results = await users.getUsers(pageNumber, limit);
     if (!results) {
       return res.status(404).json({ msg: 'Users not found' });
     } else {
@@ -21,7 +23,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const userId = req.params.id;
-    results = await users.getUserById(userId);
+    const results = await users.getUserById(userId);
     if (!results) {
       return res.status(404).json({ msg: 'Users not found' });
     } else {

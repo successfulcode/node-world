@@ -1,3 +1,5 @@
+'use strict';
+
 const { client } = require('../services/db');
 
 const users = {
