@@ -5,7 +5,7 @@ const chalk = require('chalk');
 const { connectDB } = require('./services/db');
 
 const app = express();
-connectDB();
+await connectDB();
 app.use(express.json({ extended: false }));
 
 app.get('/', (req, res) => {
