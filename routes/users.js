@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const { client } = require('../services/db');
 const users = require('../models/users');
 
 router.get('/', async (req, res) => {
@@ -21,7 +20,7 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
   try {
-    let userId = req.params.id;
+    const userId = req.params.id;
     results = await users.getUserById(userId);
     if (!results) {
       return res.status(404).json({ msg: 'Users not found' });
