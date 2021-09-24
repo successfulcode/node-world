@@ -2,14 +2,16 @@
 
 const express = require('express');
 const router = express.Router();
-const { getUsers, getUserById } = require('../models/users');
+const Users = require('../models/users');
+
+const users = new Users();
 
 router.get('/', async (req, res) => {
   try {
     const pageNumber = parseInt(req.query.page);
     const limit = parseInt(req.query.limit);
-    const offset = limit * pageNumber - limit;
-    const results = await getUsers.query([limit, offset]);
+
+    const results = await users.getUsers(limit, pageNumber);
     if (!results) {
       return res.status(404).json({ msg: 'Users not found' });
     } else {
@@ -24,7 +26,8 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const userId = req.params.id;
-    const results = await getUserById.query([userId]);
+
+    const results = await users.getUserById(userId);
     if (!results) {
       return res.status(404).json({ msg: 'User not found' });
     } else {
