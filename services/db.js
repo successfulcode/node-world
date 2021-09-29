@@ -20,4 +20,8 @@ const connectDB = async () => {
   }
 };
 
-module.exports = { client, connectDB };
+const query = async (sql, parameters) => {
+  return await client.query(sql, parameters);
+};
+
+module.exports = { client, connectDB, query };
