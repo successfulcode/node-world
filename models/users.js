@@ -3,10 +3,6 @@
 const { client } = require('../services/db');
 
 class Users {
-  constructor(sql) {
-    this._sql = sql;
-  }
-
   async _query(sql, parameters) {
     return await client.query(sql, parameters);
   }
